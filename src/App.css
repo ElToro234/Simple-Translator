@@ -1,0 +1,61 @@
+* {
+ font-family:"Inter", sans-serif;
+ box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: white;
+}
+
+h1 {
+  margin-top: 0;
+  color: #023047;
+  font-family: "Poppins, sans-serif";
+}
+
+.translation .copy-btn {
+  width: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 32px auto;
+  background: #fff;
+  padding: 16px 32px;
+  box-shadow: 0 4px 40px -8px rgba(0, 0, 0, 0.5);
+}
+
+.container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.container form label {
+  background: #a2d2ff;
+  color: #023047;
+  height: 40px;
+  width: 100px;
+  display: flex;
+  border-radius: 30px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.container form input[type='radio']:checked + label{
+  background: #023047;
+  color:white;
+  font-weight: bold;
+}
+
+.container .choices {
+  display: flex;
+  gap: 20px;
+
+}
+
+.container form input [type='radio']{
+  display: none;
+}
