@@ -10,10 +10,10 @@ const App = () => {
   const [translation, setTranslation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const openai = new OpenAI({
-    apiKey: 'API_KEY',
-    dangerouslyAllowBrowser: true // This is the default and can be omitted
-  });
+  // const openai = new OpenAI({
+  //   apiKey: 'API_KEY',
+  //   dangerouslyAllowBrowser: true // This is the default and can be omitted
+  // });
 
 
   const handleInputChange = (e) => {
