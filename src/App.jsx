@@ -10,10 +10,10 @@ const App = () => {
   const [translation, setTranslation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // const openai = new OpenAI({
-  //   apiKey: 'API_KEY',
-  //   dangerouslyAllowBrowser: true // This is the default and can be omitted
-  // });
+  const openai = new OpenAI({
+    apiKey: 'API_KEY',
+    dangerouslyAllowBrowser: true // This is the default and can be omitted
+  });
 
 
   const handleInputChange = (e) => {
@@ -70,13 +70,13 @@ const App = () => {
         <div className="choices">
           <input
             type="radio"
-            id="hindi"
+            id="english"
             name="language"
-            value="Hindi"
+            value="English"
             defaultChecked={formData.language}
             onChange={handleInputChange}
           />
-          <label htmlFor="hindi">Hindi</label>
+          <label htmlFor="English">English</label>
 
           <input
             type="radio"
