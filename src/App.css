@@ -14,10 +14,6 @@ h1 {
   font-family: "Poppins, sans-serif";
 }
 
-.translation .copy-btn {
-  width: 20px;
-}
-
 .container {
   max-width: 600px;
   margin: 32px auto;
@@ -44,7 +40,7 @@ h1 {
   cursor: pointer;
 }
 
-.container form input[type='radio']:checked + label{
+.container form input[type="radio"]:checked + label{
   background: #023047;
   color:white;
   font-weight: bold;
@@ -56,6 +52,68 @@ h1 {
 
 }
 
-.container form input [type='radio']{
+.container form input [type="radio"]{
   display: none;
+}
+
+.container textarea {
+  padding: 16px;
+  font-size: 20px;
+  height: 140px;
+  resize: none;
+  line-height: 1.7;
+  border: 1px solid #023047;
+
+}
+
+.container button {
+  padding: 8px;
+  font-size: 20px;
+  border: none;
+  background: red;
+  color:#fff;
+  cursor: pointer; 
+}
+
+.translation {
+  padding: 12px 32px;
+  background: #fff;
+  margin-top: 20x;
+  font-size: 20px;
+  line-height: 1.7;
+  height: 140px;
+  overflow-y: scroll;
+  position: relative;
+   
+}
+
+.translation .copy-btn {
+  position: absolute;
+  width: 20px;
+  top: 12px;
+  right: 12px;
+  opacity: 0.7;
+  cursor: pointer;
+
+}
+
+.notification {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100px);
+  background: #023047;
+  color: wheat;
+  padding: 12px 24px;
+  border-radius: 30px;
+  transition: all 400ms ease;
+
+}
+
+.notification.active {
+  transform: translate(-50%, -30px);
+}
+
+.error {
+  color: red;
 }
