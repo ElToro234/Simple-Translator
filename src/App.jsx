@@ -11,7 +11,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const openai = new OpenAI({
-    apiKey: 'API_KEY',
+    apiKey: 'process.env.OPENAI_API_KEY',
     dangerouslyAllowBrowser: true // This is the default and can be omitted
   });
 
