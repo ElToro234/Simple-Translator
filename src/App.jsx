@@ -13,30 +13,29 @@ const App = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   };
+  
   const translate = async () => {
     try {
       const { language, message } = formData;
       const response = await fetch('http://localhost:5000/api/translate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language, message }),
       });
-      
+  
       if (!response.ok) {
-        throw new Error('Translation failed');
+        throw new Error(`Server error: ${response.status}`);
       }
-      
+  
       const data = await response.json();
-      setIsLoading(false);
       setTranslation(data.translation);
     } catch (error) {
+      console.error("Backend connection failed. Is the server running?", error);
+      setError("Backend server is not responding. Please try again later.");
+    } finally {
       setIsLoading(false);
-      setError("Translation failed. Please try again.");
-      console.error('Translation error:', error);
-      }
-    };
+    }
+  };
 
     const fetchTranslationHistory = async () => {
       try {

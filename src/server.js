@@ -17,6 +17,10 @@ app.post('/api/translate', async (req, res) => {
   try {
     const { language, message } = req.body;
     
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+
     const response = await openai.chat.completions.create({
       messages: [{ 
         role: 'user', 
@@ -32,9 +36,19 @@ app.post('/api/translate', async (req, res) => {
     
   } catch (error) {
     console.error('Translation error:', error);
-    res.status(500).json({ error: 'Translation failed' });
+    res.status(500).json({ 
+      error: 'Translation failed',
+      details: error.message 
+    });
   }
 });
+
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.send('Translation server is running');
+});
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
