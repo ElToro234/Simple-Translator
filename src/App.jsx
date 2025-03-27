@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import OpenAI from 'openai';
 import { BeatLoader } from "react-spinners";
 
 const App = () => {
@@ -10,33 +9,50 @@ const App = () => {
   const [translation, setTranslation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const openai = new OpenAI({
-    apiKey: 'import.meta.env.VITE_OPENAI_KEY',
-    dangerouslyAllowBrowser: true // This is the default and can be omitted
-  });
-
-
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   };
   const translate = async () => {
-    const { language, message } = formData;
-    const response = await openai.chat.completions.create({
-      messages: [{ role: 'user', content: `Translate this into ${language}: ${message}` }],
-      model: 'gpt-3.5-turbo',
-      temperature: 0.3,
-      max_tokens: 100,
-      top_p: 1.0,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0
-    });
-    console.log(response)
-    console.log(response.choices)
-    const translatedText = response.choices[0].message.content.trim();
-    setIsLoading(false);
-    setTranslation(translatedText);
-  };
+    try {
+      const { language, message } = formData;
+      const response = await fetch('http://localhost:5000/api/translate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ language, message }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Translation failed');
+      }
+      
+      const data = await response.json();
+      setIsLoading(false);
+      setTranslation(data.translation);
+    } catch (error) {
+      setIsLoading(false);
+      setError("Translation failed. Please try again.");
+      console.error('Translation error:', error);
+      }
+    };
+
+    const fetchTranslationHistory = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/translations');
+        const data = await response.json();
+        console.log('History:', data);
+        // You could display this in your UI
+      } catch (error) {
+        console.error('Failed to fetch history:', error);
+      }
+    };
+    
+    // Call fetchTranslationHistory when component mounts
+    useEffect(() => {
+      fetchTranslationHistory();
+    }, []);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
